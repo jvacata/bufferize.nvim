@@ -12,7 +12,7 @@ Using lazy.nvim
 ```
 
 # Usage
-![Alt text](https://imgur.com/a/CqqmEuC)
+![alt text](https://i.imgur.com/ZIyhcbL.gif)
 
 
 By default, run 
