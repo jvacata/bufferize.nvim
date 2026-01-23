@@ -7,9 +7,7 @@ Using lazy.nvim
 ```
 {
     "jvacata/bufferize.nvim",
-    config = function()
-        require("bufferize").setup()
-    end
+    config = true
 }
 ```
 
