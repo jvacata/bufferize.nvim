@@ -21,6 +21,11 @@ M.create_commands = function()
 end
 
 M.bufferize = function(cmd)
+    local cmd_result = M.execute_command(cmd)
+    window.show_window(cmd_result)
+end
+
+M.execute_command = function(cmd)
     if cmd == '' then
         cmd = 'messages'
     end
@@ -30,6 +35,7 @@ M.bufferize = function(cmd)
     end
 
     local ok, result = pcall(exec_cmd_func)
+    print(ok, vim.inspect(result))
     local output_msg
 
     if not ok then
@@ -40,7 +46,7 @@ M.bufferize = function(cmd)
         output_msg = 'No output from command: ' .. cmd
     end
 
-    window.show_window(output_msg)
+    return output_msg
 end
 
 return M
