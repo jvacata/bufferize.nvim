@@ -35,7 +35,6 @@ M.execute_command = function(cmd)
     end
 
     local ok, result = pcall(exec_cmd_func)
-    print(ok, vim.inspect(result))
     local output_msg
 
     if not ok then
