@@ -2,7 +2,7 @@ local M = {}
 
 local config = require('bufferize.config')
 local window = require('bufferize.window')
-local string = require('bufferize.string')
+local string_utils = require('bufferize.string_utils')
 
 M.setup = function(opts)
     config.update_config(opts)
@@ -35,12 +35,11 @@ M.execute_command = function(cmd)
     end
 
     local ok, result = pcall(exec_cmd_func)
-    print(ok, vim.inspect(result))
     local output_msg
 
     if not ok then
         output_msg = 'Call ' .. cmd .. ' failed:' .. result
-    elseif result ~= nil and string.is_not_empty(result.output) then
+    elseif result ~= nil and string_utils.is_not_empty(result.output) then
         output_msg = result.output
     else
         output_msg = 'No output from command: ' .. cmd
