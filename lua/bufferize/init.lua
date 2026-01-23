@@ -2,6 +2,7 @@ local M = {}
 
 local config = require('bufferize.config')
 local window = require('bufferize.window')
+local string = require('bufferize.string')
 
 M.setup = function(opts)
     config.update_config(opts)
@@ -24,7 +25,22 @@ M.bufferize = function(cmd)
         cmd = 'messages'
     end
 
-    window.show_window(vim.api.nvim_exec(cmd, true))
+    local exec_cmd_func = function()
+        return vim.api.nvim_exec2(cmd, { output = true })
+    end
+
+    local ok, result = pcall(exec_cmd_func)
+    local output_msg
+
+    if not ok then
+        output_msg = 'Call ' .. cmd .. ' failed:' .. result
+    elseif result ~= nil and string.is_not_empty(result.output) then
+        output_msg = result.output
+    else
+        output_msg = 'No output from command: ' .. cmd
+    end
+
+    window.show_window(output_msg)
 end
 
 return M
