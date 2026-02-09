@@ -7,6 +7,10 @@ M.show_window = function(text)
     local opts = config.settings.window_opts()
     local bufnr, winnr = M.get_window_with_buffer(opts)
 
+    if not bufnr then
+        return nil
+    end
+
     vim.api.nvim_set_option_value('buftype', 'nowrite', { buf = bufnr })
     vim.api.nvim_set_option_value('bufhidden', 'wipe', { buf = bufnr })
 
@@ -37,6 +41,12 @@ M.get_window_with_buffer = function(opts)
     for _, win_id in pairs(wins) do
         local win_currect_buf_id = vim.api.nvim_win_get_buf(win_id)
         if win_currect_buf_id == messages_buf_id then
+
+            -- If window already exists and is focused, close it
+            if vim.api.nvim_get_current_win() == win_id then
+                vim.api.nvim_win_close(win_id, true)
+                return nil, nil
+            end
             vim.api.nvim_tabpage_set_win(0, win_id)
             return messages_buf_id, win_id
         end
