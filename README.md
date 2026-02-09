@@ -17,6 +17,6 @@ Using lazy.nvim
 
 By default, run 
 ```:Bufferize <cmd>``` 
-to execute \<cmd\> and open it's output in a new buffer. If the buffer already exists and is shown in any window, it will be focused instead and the content will be updated.
+to execute \<cmd\> and open its output in a new buffer. If the buffer already exists and is shown in any window, it will be focused instead and the content will be updated.
 
 If the window is already shown and focused, it will close the window instead.
